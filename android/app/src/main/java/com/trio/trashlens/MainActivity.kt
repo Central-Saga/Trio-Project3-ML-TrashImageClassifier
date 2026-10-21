@@ -1,11 +1,14 @@
 package com.trio.trashlens
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.widget.ImageView
 import android.widget.FrameLayout
@@ -15,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -26,6 +30,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.exifinterface.media.ExifInterface
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.button.MaterialButton
@@ -80,6 +85,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnClearHistory: View
 
     private lateinit var cameraPermissionLauncher: ActivityResultLauncher<String>
+    private var cameraPermissionDialog: AlertDialog? = null
+    private var isCameraStarting = false
     private val inferenceExecutor: ExecutorService = Executors.newSingleThreadExecutor()
 
     private var currentPage: Page? = null
@@ -99,6 +106,10 @@ class MainActivity : AppCompatActivity() {
         window.statusBarColor = getColor(R.color.background_navy)
         window.navigationBarColor = getColor(R.color.surface_primary)
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window, window.decorView).apply {
+            isAppearanceLightStatusBars = true
+            isAppearanceLightNavigationBars = true
+        }
         setContentView(R.layout.activity_main)
 
         val appRoot = findViewById<View>(R.id.appRoot)
@@ -118,10 +129,22 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.RequestPermission()
         ) { granted ->
             if (granted) {
+                getSharedPreferences("trashlens_camera_permission", MODE_PRIVATE)
+                    .edit()
+                    .putInt("camera_permission_request_count", 0)
+                    .apply()
+                cameraPermissionDialog?.dismiss()
+                cameraPermissionDialog = null
                 btnGrantCamera.visibility = View.GONE
                 startCamera()
             } else {
                 showCameraPermissionNeeded()
+                val requestCount = getCameraPermissionRequestCount()
+                if (requestCount >= 2 &&
+                    !shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
+                ) {
+                    showCameraSettingsDialog()
+                }
             }
         }
 
@@ -167,7 +190,7 @@ class MainActivity : AppCompatActivity() {
         navAbout.setOnClickListener { showPage(Page.ABOUT) }
         btnCaptureAndScan.setOnClickListener { captureAndClassify() }
         btnGrantCamera.setOnClickListener {
-            cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+            requestCameraPermissionIfNeeded()
         }
         btnClearHistory.setOnClickListener { confirmClearHistory() }
     }
@@ -211,28 +234,114 @@ class MainActivity : AppCompatActivity() {
         ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
             PackageManager.PERMISSION_GRANTED
 
+    private fun getCameraPermissionRequestCount(): Int =
+        getSharedPreferences("trashlens_camera_permission", MODE_PRIVATE)
+            .getInt("camera_permission_request_count", 0)
+
     private fun requestCameraPermissionIfNeeded() {
+        if (hasCameraPermission()) {
+            cameraPermissionDialog?.dismiss()
+            cameraPermissionDialog = null
+            btnGrantCamera.visibility = View.GONE
+            startCamera()
+            return
+        }
+
         tvCameraStatus.text = "Akses kamera dibutuhkan untuk memindai sampah."
         btnGrantCamera.visibility = View.VISIBLE
         btnCaptureAndScan.isEnabled = false
+
+        val requestCount = getCameraPermissionRequestCount()
+        val shouldShowRationale = shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
+        when {
+            requestCount >= 2 && !shouldShowRationale -> showCameraSettingsDialog()
+            shouldShowRationale || requestCount == 0 -> showCameraRationaleDialog()
+            else -> launchCameraPermissionRequest()
+        }
+    }
+
+    private fun showCameraRationaleDialog() {
+        if (cameraPermissionDialog?.isShowing == true) return
+
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setTitle("Izin kamera diperlukan")
+            .setMessage(
+                "TrashLens menggunakan kamera untuk mengambil foto sampah dan " +
+                    "mengklasifikasikannya langsung di perangkat. Foto tidak perlu dikirim ke internet."
+            )
+            .setPositiveButton("Lanjutkan") { _, _ ->
+                launchCameraPermissionRequest()
+            }
+            .setNegativeButton("Nanti", null)
+            .create()
+        cameraPermissionDialog = dialog
+        dialog.setOnDismissListener {
+            if (cameraPermissionDialog === dialog) cameraPermissionDialog = null
+        }
+        dialog.show()
+    }
+
+    private fun launchCameraPermissionRequest() {
+        val nextCount = getCameraPermissionRequestCount() + 1
+        getSharedPreferences("trashlens_camera_permission", MODE_PRIVATE)
+            .edit()
+            .putInt("camera_permission_request_count", nextCount)
+            .apply()
         cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
     private fun showCameraPermissionNeeded() {
-        tvCameraStatus.text = "Izin kamera belum diberikan. Izinkan agar bisa mulai scan."
+        tvCameraStatus.text = "Izin kamera belum diberikan. Tekan Izinkan Kamera untuk mencoba lagi."
         btnGrantCamera.visibility = View.VISIBLE
         btnCaptureAndScan.isEnabled = false
+    }
+
+    private fun showCameraSettingsDialog() {
+        if (cameraPermissionDialog?.isShowing == true) return
+
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setTitle("Izin kamera belum aktif")
+            .setMessage(
+                "Izin kamera telah ditolak beberapa kali. Buka Pengaturan aplikasi, " +
+                    "aktifkan izin Kamera, lalu kembali ke TrashLens."
+            )
+            .setNegativeButton("Nanti", null)
+            .setPositiveButton("Buka Pengaturan") { _, _ ->
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                    data = Uri.fromParts("package", packageName, null)
+                }
+                try {
+                    startActivity(intent)
+                } catch (_: Exception) {
+                    Toast.makeText(
+                        this,
+                        "Pengaturan aplikasi tidak dapat dibuka. Buka melalui Settings perangkat.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            .create()
+        cameraPermissionDialog = dialog
+        dialog.setOnDismissListener {
+            if (cameraPermissionDialog === dialog) cameraPermissionDialog = null
+        }
+        dialog.show()
     }
 
     private fun startCamera() {
         if (currentPage != Page.SCAN || !hasCameraPermission()) return
         if (cameraProvider != null && imageCapture != null) return
+        if (isCameraStarting) return
 
+        isCameraStarting = true
         tvCameraStatus.text = "Menyiapkan kamera..."
         btnCaptureAndScan.isEnabled = false
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture.addListener({
-            if (currentPage != Page.SCAN || isFinishing || isDestroyed) return@addListener
+            if (currentPage != Page.SCAN || isFinishing || isDestroyed) {
+                isCameraStarting = false
+                return@addListener
+            }
             try {
                 val provider = cameraProviderFuture.get()
                 val preview = Preview.Builder().build().also {
@@ -252,12 +361,14 @@ class MainActivity : AppCompatActivity() {
                 )
                 cameraProvider = provider
                 imageCapture = capture
+                isCameraStarting = false
                 btnGrantCamera.visibility = View.GONE
                 btnCaptureAndScan.isEnabled = true
                 tvCameraStatus.text = "Kamera aktif · arahkan ke satu objek"
             } catch (e: Exception) {
                 cameraProvider = null
                 imageCapture = null
+                isCameraStarting = false
                 btnCaptureAndScan.isEnabled = false
                 tvCameraStatus.text = "Kamera tidak dapat dibuka: ${e.localizedMessage ?: "periksa perangkat"}"
                 btnGrantCamera.visibility = View.VISIBLE
@@ -273,6 +384,18 @@ class MainActivity : AppCompatActivity() {
         }
         cameraProvider = null
         imageCapture = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (currentPage != Page.SCAN) return
+
+        if (hasCameraPermission()) {
+            btnGrantCamera.visibility = View.GONE
+            if (cameraProvider == null && imageCapture == null) startCamera()
+        } else {
+            showCameraPermissionNeeded()
+        }
     }
 
     private fun captureAndClassify() {
@@ -298,7 +421,7 @@ class MainActivity : AppCompatActivity() {
 
         isCapturing = true
         btnCaptureAndScan.isEnabled = false
-        btnCaptureAndScan.text = "MEMINDAI SAMPAH..."
+        btnCaptureAndScan.text = "Sedang menganalisis..."
         progressScan.visibility = View.VISIBLE
         tvCameraStatus.text = "Mengambil foto dan menganalisis..."
         resultCard.visibility = View.GONE
@@ -364,7 +487,7 @@ class MainActivity : AppCompatActivity() {
                                 tvCameraStatus.text = "Scan selesai · siap untuk objek berikutnya"
                                 progressScan.visibility = View.GONE
                                 btnCaptureAndScan.isEnabled = true
-                                btnCaptureAndScan.text = "●  AMBIL FOTO & KLASIFIKASIKAN"
+                                btnCaptureAndScan.text = "📸  Scan Sekarang"
                                 isCapturing = false
                             }
                         } catch (e: Exception) {
@@ -374,7 +497,7 @@ class MainActivity : AppCompatActivity() {
                                 tvCameraStatus.text = "Klasifikasi gagal: ${e.localizedMessage ?: "model tidak dapat dijalankan"}"
                                 progressScan.visibility = View.GONE
                                 btnCaptureAndScan.isEnabled = hasCameraPermission() && imageCapture != null
-                                btnCaptureAndScan.text = "COBA SCAN LAGI"
+                                btnCaptureAndScan.text = "📸  Coba Scan Lagi"
                                 isCapturing = false
                                 Toast.makeText(
                                     this@MainActivity,
@@ -391,7 +514,7 @@ class MainActivity : AppCompatActivity() {
                     isCapturing = false
                     progressScan.visibility = View.GONE
                     btnCaptureAndScan.isEnabled = true
-                    btnCaptureAndScan.text = "COBA SCAN LAGI"
+                    btnCaptureAndScan.text = "📸  Coba Scan Lagi"
                     tvCameraStatus.text = "Gagal mengambil foto: ${exception.message ?: "coba lagi"}"
                 }
             }
@@ -512,11 +635,19 @@ class MainActivity : AppCompatActivity() {
         btnClearHistory.isEnabled = scanHistory.isNotEmpty()
 
         scanHistory.forEach { record ->
+            val categoryTint = when (record.label) {
+                "cardboard" -> getColor(R.color.accent_orange)
+                "glass" -> getColor(R.color.accent_blue)
+                "metal" -> getColor(R.color.divider_color)
+                "paper" -> getColor(R.color.accent_yellow)
+                "plastic" -> getColor(R.color.accent_coral)
+                else -> getColor(R.color.accent_purple)
+            }
             val card = MaterialCardView(this).apply {
                 radius = dp(18).toFloat()
                 cardElevation = dp(1).toFloat()
                 strokeWidth = dp(1)
-                strokeColor = getColor(R.color.divider_color)
+                strokeColor = categoryTint
                 setCardBackgroundColor(getColor(R.color.surface_primary))
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -532,7 +663,7 @@ class MainActivity : AppCompatActivity() {
                 layoutParams = LinearLayout.LayoutParams(dp(76), dp(76))
                 scaleType = ImageView.ScaleType.CENTER_CROP
                 contentDescription = "Foto ${displayWasteLabel(record.label)}"
-                setBackgroundColor(getColor(R.color.background_navy))
+                setBackgroundColor(categoryTint)
             }
             val file = File(record.imagePath)
             if (file.exists()) {
