@@ -15,4 +15,9 @@
     <color name="divider_color">#294047</color>
     <color name="ripple_teal">#557CE8B2</color>
     <color name="warning_amber">#FFD18B</color>
+    <color name="accent_orange">#FF9800</color>
+    <color name="accent_blue">#2196F3</color>
+    <color name="accent_yellow">#FFC107</color>
+    <color name="accent_coral">#FF7F50</color>
+    <color name="accent_purple">#9C27B0</color>
 </resources>
