@@ -4,148 +4,529 @@
     android:id="@+id/appRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background_navy">
+    android:background="@color/background_navy"
+    android:orientation="vertical">
 
+    <!-- Header tipis dan sederhana, terinspirasi aplikasi pemilahan nyata. -->
     <LinearLayout
         android:id="@+id/appHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="68dp"
+        android:background="@color/surface_primary"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="14dp">
+        android:elevation="1dp">
+
+        <FrameLayout
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:background="@drawable/bg_brand_icon">
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_gravity="center"
+                android:contentDescription="Logo EcoScan"
+                android:src="@drawable/ic_ecoscan_mark" />
+        </FrameLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="♻ TrashLens"
-                android:textColor="@color/text_primary"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:fontFamily="sans" />
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_status_chip"
-                android:paddingStart="11dp"
-                android:paddingEnd="11dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:text="● AI OFFLINE"
-                android:textColor="@color/accent_teal"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.06" />
+                android:text="EcoScan"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
+                android:fontFamily="sans"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="Kenali dan pilah sampah"
+                android:textColor="@color/text_muted"
+                android:textSize="11sp" />
         </LinearLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Kenali dan pilah sampah dengan kamera"
-            android:textColor="@color/text_secondary"
-            android:textSize="13sp" />
+            android:background="@drawable/bg_status_chip"
+            android:paddingStart="10dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="6dp"
+            android:text="OFFLINE"
+            android:textColor="@color/accent_teal"
+            android:textSize="9sp"
+            android:letterSpacing="0.04"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/pageContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
-        <!-- PAGE 1: CAMERA SCAN -->
+        <!-- BERANDA -->
         <ScrollView
-            android:id="@+id/pageScan"
+            android:id="@+id/pageHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fillViewport="false"
+            android:scrollbars="none"
             android:clipToPadding="false"
-            android:fillViewport="true"
-            android:scrollbars="none">
+            android:visibility="visible">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingStart="18dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="22dp">
+                android:paddingStart="20dp"
+                android:paddingTop="22dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="28dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/bg_status_chip"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:text="SCAN • CLASSIFY • RECYCLE"
-                    android:textColor="@color/accent_teal"
+                    android:text="SELAMAT DATANG"
+                    android:textColor="@color/text_muted"
                     android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.08" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="11dp"
-                    android:text="Sampah apa ini?"
-                    android:textColor="@color/text_primary"
-                    android:textSize="27sp"
+                    android:letterSpacing="0.12"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="Halo, Sobat Bumi.\nMulai pilah dari rumah."
+                    android:textColor="@color/text_primary"
+                    android:textSize="25sp"
+                    android:lineSpacingExtra="1dp"
+                    android:fontFamily="sans"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="Arahkan kamera ke satu benda untuk mengenali jenis sampahnya."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="3dp" />
+
+                <!-- Kartu statistik putih, tanpa gradasi atau ilustrasi berlebihan. -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp"
+                    app:cardBackgroundColor="@color/surface_primary"
+                    app:cardCornerRadius="17dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="@color/divider_color"
+                    app:strokeWidth="1dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="17dp"
+                        android:paddingTop="15dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="15dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total pemindaian"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="12sp" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:id="@+id/tvHomeScanCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="28sp"
+                                    android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="6dp"
+                                    android:text="hasil scan"
+                                    android:textColor="@color/text_muted"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Tersimpan di perangkat ini"
+                                android:textColor="@color/text_muted"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="47dp"
+                            android:layout_marginEnd="15dp"
+                            android:background="@color/divider_color" />
+                        <LinearLayout
+                            android:layout_width="74dp"
+                            android:layout_height="74dp"
+                            android:background="@drawable/bg_stat_circle"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:contentDescription="Enam kategori"
+                                android:src="@drawable/ic_ecoscan_mark" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="6 kategori"
+                                android:textColor="@color/accent_teal"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- KATEGORI -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kategori sampah"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Kenali bahan sebelum memilah"
+                            android:textColor="@color/text_muted"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GESER &gt;"
+                        android:textColor="@color/accent_teal"
+                        android:textSize="9sp"
+                        android:letterSpacing="0.05"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:clipToPadding="false"
+                    android:fillViewport="false"
+                    android:scrollbars="none">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="94dp"
+                            android:layout_height="116dp"
+                            android:layout_marginEnd="9dp"
+                            app:cardBackgroundColor="@color/surface_primary"
+                            app:cardCornerRadius="14dp"
+                            app:cardElevation="1dp"
+                            app:strokeColor="@color/divider_color"
+                            app:strokeWidth="1dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="10dp">
+                                <ImageView android:layout_width="43dp" android:layout_height="43dp" android:padding="10dp" android:background="@drawable/bg_category_plastic" android:src="@drawable/ic_category_plastic" android:contentDescription="Ilustrasi plastik" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9dp" android:text="Plastik" android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="94dp"
+                            android:layout_height="116dp"
+                            android:layout_marginEnd="9dp"
+                            app:cardBackgroundColor="@color/surface_primary"
+                            app:cardCornerRadius="14dp"
+                            app:cardElevation="1dp"
+                            app:strokeColor="@color/divider_color"
+                            app:strokeWidth="1dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="10dp">
+                                <ImageView android:layout_width="43dp" android:layout_height="43dp" android:padding="10dp" android:background="@drawable/bg_category_glass" android:src="@drawable/ic_category_glass" android:contentDescription="Ilustrasi kaca" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9dp" android:text="Kaca" android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="94dp"
+                            android:layout_height="116dp"
+                            android:layout_marginEnd="9dp"
+                            app:cardBackgroundColor="@color/surface_primary"
+                            app:cardCornerRadius="14dp"
+                            app:cardElevation="1dp"
+                            app:strokeColor="@color/divider_color"
+                            app:strokeWidth="1dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="10dp">
+                                <ImageView android:layout_width="43dp" android:layout_height="43dp" android:padding="10dp" android:background="@drawable/bg_category_metal" android:src="@drawable/ic_category_metal" android:contentDescription="Ilustrasi logam" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9dp" android:text="Logam" android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="94dp"
+                            android:layout_height="116dp"
+                            android:layout_marginEnd="9dp"
+                            app:cardBackgroundColor="@color/surface_primary"
+                            app:cardCornerRadius="14dp"
+                            app:cardElevation="1dp"
+                            app:strokeColor="@color/divider_color"
+                            app:strokeWidth="1dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="10dp">
+                                <ImageView android:layout_width="43dp" android:layout_height="43dp" android:padding="10dp" android:background="@drawable/bg_category_paper" android:src="@drawable/ic_category_paper" android:contentDescription="Ilustrasi kertas" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9dp" android:text="Kertas" android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="94dp"
+                            android:layout_height="116dp"
+                            android:layout_marginEnd="9dp"
+                            app:cardBackgroundColor="@color/surface_primary"
+                            app:cardCornerRadius="14dp"
+                            app:cardElevation="1dp"
+                            app:strokeColor="@color/divider_color"
+                            app:strokeWidth="1dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="10dp">
+                                <ImageView android:layout_width="43dp" android:layout_height="43dp" android:padding="10dp" android:background="@drawable/bg_category_cardboard" android:src="@drawable/ic_category_cardboard" android:contentDescription="Ilustrasi kardus" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9dp" android:text="Kardus" android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="94dp"
+                            android:layout_height="116dp"
+                            android:layout_marginEnd="2dp"
+                            app:cardBackgroundColor="@color/surface_primary"
+                            app:cardCornerRadius="14dp"
+                            app:cardElevation="1dp"
+                            app:strokeColor="@color/divider_color"
+                            app:strokeWidth="1dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="10dp">
+                                <ImageView android:layout_width="43dp" android:layout_height="43dp" android:padding="10dp" android:background="@drawable/bg_category_trash" android:src="@drawable/ic_category_other" android:contentDescription="Ilustrasi sampah lainnya" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="9dp" android:text="Lainnya" android:textColor="@color/text_primary" android:textSize="12sp" android:textStyle="bold" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <!-- List item sederhana meniru daftar layanan pada aplikasi referensi. -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sebelum memilah"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TIPS SINGKAT"
+                        android:textColor="@color/text_muted"
+                        android:textSize="9sp"
+                        android:letterSpacing="0.06"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    app:cardBackgroundColor="@color/surface_primary"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/divider_color"
+                    app:strokeWidth="1dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:padding="13dp">
+                        <FrameLayout android:layout_width="43dp" android:layout_height="43dp" android:background="@drawable/bg_tip_mint">
+                            <ImageView android:layout_width="22dp" android:layout_height="22dp" android:layout_gravity="center" android:src="@drawable/ic_tip_wash" android:contentDescription="Bersihkan kemasan" />
+                        </FrameLayout>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Kosongkan kemasan" android:textColor="@color/text_primary" android:textSize="13sp" android:textStyle="bold" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="Bilas sisa isi sebelum memasukkannya ke tempat pilah." android:textColor="@color/text_secondary" android:textSize="11sp" android:lineSpacingExtra="2dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    app:cardBackgroundColor="@color/surface_primary"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/divider_color"
+                    app:strokeWidth="1dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:padding="13dp">
+                        <FrameLayout android:layout_width="43dp" android:layout_height="43dp" android:background="@drawable/bg_tip_sand">
+                            <ImageView android:layout_width="22dp" android:layout_height="22dp" android:layout_gravity="center" android:src="@drawable/ic_tip_sort" android:contentDescription="Pisahkan bahan" />
+                        </FrameLayout>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Pisahkan berdasarkan bahan" android:textColor="@color/text_primary" android:textSize="13sp" android:textStyle="bold" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="Kaca, logam, kertas, dan plastik sebaiknya tidak tercampur." android:textColor="@color/text_secondary" android:textSize="11sp" android:lineSpacingExtra="2dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnHomeScan"
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:layout_marginTop="18dp"
+                    android:text="Mulai pindai sampah"
+                    android:textAllCaps="false"
+                    android:textColor="@color/surface_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/accent_teal"
+                    app:cornerRadius="15dp"
+                    app:icon="@android:drawable/ic_menu_camera"
+                    app:iconTint="@color/surface_primary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="Pilah seperlunya. Mulai dari yang sederhana."
+                    android:textColor="@color/text_muted"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- SCAN: fungsi kamera dan klasifikasi tetap menggunakan ID yang sama. -->
+        <ScrollView
+            android:id="@+id/pageScan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="false"
+            android:scrollbars="none"
+            android:clipToPadding="false"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="25dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PEMINDAIAN"
+                    android:textColor="@color/text_muted"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.12"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Scan sampah"
+                    android:textColor="@color/text_primary"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:lineSpacingExtra="3dp"
-                    android:text="Arahkan kamera ke satu objek sampah, lalu ambil foto untuk melihat hasil klasifikasi AI."
+                    android:text="Posisikan satu benda di tengah bingkai kamera."
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
                     <View
-                        android:layout_width="8dp"
-                        android:layout_height="8dp"
+                        android:layout_width="7dp"
+                        android:layout_height="7dp"
                         android:background="@drawable/bg_status_dot" />
                     <TextView
                         android:id="@+id/tvCameraStatus"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="8dp"
-                        android:text="Menyiapkan kamera..."
+                        android:layout_weight="1"
+                        android:text="Menyalakan kamera..."
                         android:textColor="@color/text_secondary"
-                        android:textSize="12sp" />
+                        android:textSize="11sp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="BELAKANG"
-                        android:textColor="@color/text_muted"
-                        android:textSize="10sp"
-                        android:letterSpacing="0.06" />
+                        android:background="@drawable/bg_status_chip"
+                        android:paddingStart="9dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="5dp"
+                        android:text="KAMERA LIVE"
+                        android:textColor="@color/accent_teal"
+                        android:textSize="9sp"
+                        android:letterSpacing="0.03"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_marginTop="10dp"
-                    app:cardBackgroundColor="@color/surface_primary"
-                    app:cardCornerRadius="24dp"
-                    app:cardElevation="2dp"
-                    app:strokeColor="@color/border_teal"
+                    android:layout_height="340dp"
+                    android:layout_marginTop="11dp"
+                    app:cardBackgroundColor="#FF202A27"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="#FFD9E4DD"
                     app:strokeWidth="1dp">
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -156,71 +537,141 @@
                             android:layout_height="match_parent"
                             app:implementationMode="compatible"
                             app:scaleType="fillCenter" />
+                        <FrameLayout
+                            android:layout_width="220dp"
+                            android:layout_height="220dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_camera_frame"
+                            android:contentDescription="Bingkai untuk memusatkan objek" />
                         <TextView
                             android:id="@+id/tvCameraOverlay"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom|center_horizontal"
-                            android:layout_margin="12dp"
+                            android:layout_marginBottom="14dp"
                             android:background="@drawable/bg_camera_overlay"
-                            android:paddingStart="14dp"
-                            android:paddingEnd="14dp"
-                            android:paddingTop="9dp"
-                            android:paddingBottom="9dp"
-                            android:text="Tempatkan satu objek di tengah kamera"
-                            android:textColor="@color/text_primary"
-                            android:textSize="12sp" />
+                            android:paddingStart="13dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="13dp"
+                            android:paddingBottom="8dp"
+                            android:text="Satu objek - cahaya cukup"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="11sp" />
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnGrantCamera"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="12dp"
-                    android:visibility="gone"
-                    android:text="IZINKAN AKSES KAMERA"
+                    android:text="Izinkan akses kamera"
                     android:textAllCaps="false"
-                    android:textStyle="bold"
+                    android:textColor="@color/accent_teal"
+                    android:visibility="gone"
                     app:backgroundTint="@color/surface_primary"
-                    app:cornerRadius="16dp"
+                    app:cornerRadius="14dp"
                     app:strokeColor="@color/border_teal"
-                    app:strokeWidth="1dp"
-                    android:textColor="@color/accent_teal" />
+                    app:strokeWidth="1dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCaptureAndScan"
                     android:layout_width="match_parent"
-                    android:layout_height="58dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="13dp"
                     android:enabled="false"
-                    android:text="●  AMBIL FOTO &amp; KLASIFIKASIKAN"
+                    android:text="Ambil foto &amp; analisis"
                     android:textAllCaps="false"
-                    android:textColor="@color/background_navy"
+                    android:textColor="@color/surface_primary"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:backgroundTint="@color/accent_teal"
-                    app:cornerRadius="18dp" />
+                    app:cornerRadius="16dp"
+                    app:elevation="2dp"
+                    app:icon="@android:drawable/ic_menu_camera"
+                    app:iconTint="@color/surface_primary" />
 
-                <ProgressBar
-                    android:id="@+id/progressScan"
-                    style="?android:attr/progressBarStyleHorizontal"
+                                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnUploadImage"
                     android:layout_width="match_parent"
-                    android:layout_height="4dp"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="9dp"
+                    android:text="Pilih gambar dari galeri"
+                    android:textAllCaps="false"
+                    android:textColor="@color/accent_teal"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/surface_primary"
+                    app:cornerRadius="18dp"
+                    app:icon="@android:drawable/ic_menu_gallery"
+                    app:iconTint="@color/accent_teal"
+                    app:strokeColor="@color/border_teal"
+                    app:strokeWidth="1dp" />
+<com.google.android.material.card.MaterialCardView
+                    android:id="@+id/scanLoadingCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:indeterminate="true"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    app:cardBackgroundColor="#FFFFFFFF"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="14dp">
+
+                        <ProgressBar
+                            android:id="@+id/progressScan"
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:contentDescription="Sedang memproses foto"
+                            android:indeterminate="true"
+                            android:indeterminateTint="@color/accent_teal"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvScanLoadingMessage"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:accessibilityLiveRegion="polite"
+                                android:text="Sedang menganalisis foto..."
+                                android:textColor="@color/background_navy"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="Pemrosesan dilakukan di perangkat. Mohon tunggu."
+                                android:textColor="#FF52615B"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/resultCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="16dp"
                     android:visibility="gone"
-                    app:cardBackgroundColor="@color/surface_result"
-                    app:cardCornerRadius="22dp"
-                    app:cardElevation="0dp"
-                    app:strokeColor="@color/border_teal"
+                    app:cardBackgroundColor="@color/surface_primary"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="@color/divider_color"
                     app:strokeWidth="1dp">
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -231,139 +682,187 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="HASIL PEMINDAIAN"
-                            android:textColor="@color/accent_teal"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.09" />
+                            android:textColor="@color/text_muted"
+                            android:textSize="10sp"
+                            android:letterSpacing="0.10"
+                            android:textStyle="bold" />
                         <ImageView
                             android:id="@+id/ivResultImage"
                             android:layout_width="match_parent"
-                            android:layout_height="156dp"
-                            android:layout_marginTop="12dp"
+                            android:layout_height="175dp"
+                            android:layout_marginTop="11dp"
+                            android:background="@color/surface_input"
                             android:contentDescription="Foto yang dianalisis"
-                            android:scaleType="centerCrop"
-                            android:background="@color/surface_primary" />
+                            android:scaleType="centerCrop" />
                         <TextView
                             android:id="@+id/tvResultCategory"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
-                            android:text="Kardus / Cardboard"
+                            android:layout_marginTop="13dp"
+                            android:text="Kardus"
                             android:textColor="@color/text_primary"
-                            android:textSize="22sp"
+                            android:textSize="23sp"
                             android:textStyle="bold" />
                         <TextView
                             android:id="@+id/tvResultConfidence"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Confidence: 90,00%"
+                            android:layout_marginTop="5dp"
+                            android:text="Keyakinan model: 90,00%"
                             android:textColor="@color/accent_teal"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="Alternatif prediksi"
+                            android:textColor="@color/text_primary"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
                         <TextView
                             android:id="@+id/tvResultScores"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_scores_panel"
                             android:lineSpacingExtra="4dp"
+                            android:padding="11dp"
                             android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
+                            android:textSize="11sp" />
                         <TextView
                             android:id="@+id/tvResultDisclaimer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="AI dapat salah mengenali sampah. Periksa kembali sebelum memilah."
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_note_panel"
+                            android:lineSpacingExtra="2dp"
+                            android:padding="12dp"
+                            android:text="Prediksi dapat keliru. Periksa kembali sebelum memilah."
                             android:textColor="@color/warning_amber"
-                            android:textSize="12sp"
-                            android:lineSpacingExtra="2dp" />
+                            android:textSize="11sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="13dp"
                     android:gravity="center"
-                    android:text="Model berjalan offline di perangkat. Untuk hasil terbaik, pindai satu objek dengan pencahayaan cukup."
+                    android:text="Hasil tersimpan otomatis di Riwayat"
                     android:textColor="@color/text_muted"
-                    android:textSize="11sp"
-                    android:lineSpacingExtra="3dp" />
+                    android:textSize="10sp" />
             </LinearLayout>
         </ScrollView>
 
-        <!-- PAGE 2: LOCAL SCAN HISTORY -->
+        <!-- RIWAYAT -->
         <ScrollView
             android:id="@+id/pageHistory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:fillViewport="false"
+            android:scrollbars="none"
             android:clipToPadding="false"
-            android:scrollbars="none">
+            android:visibility="gone">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingStart="18dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="24dp">
+                android:paddingStart="20dp"
+                android:paddingTop="22dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="28dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AKTIVITAS"
+                    android:textColor="@color/text_muted"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.12"
+                    android:textStyle="bold" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="Riwayat pemindaian"
                     android:textColor="@color/text_primary"
-                    android:textSize="26sp"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Semua hasil scan tersimpan lokal di perangkat ini."
+                    android:text="Semua foto dan hasil yang tersimpan di perangkat ini."
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
-                <LinearLayout
+
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/tvHistoryCount"
-                        android:layout_width="0dp"
+                    android:layout_marginTop="17dp"
+                    app:cardBackgroundColor="@color/surface_primary"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/divider_color"
+                    app:strokeWidth="1dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="0 hasil tersimpan"
-                        android:textColor="@color/accent_teal"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnClearHistory"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:minHeight="0dp"
-                        android:text="Hapus semua"
-                        android:textAllCaps="false"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_secondary"
-                        app:backgroundTint="@color/surface_primary"
-                        app:cornerRadius="13dp" />
-                </LinearLayout>
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="14dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pemindaian tersimpan"
+                                android:textColor="@color/text_muted"
+                                android:textSize="11sp" />
+                            <TextView
+                                android:id="@+id/tvHistoryCount"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:text="0 hasil tersimpan"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnClearHistory"
+                            android:layout_width="wrap_content"
+                            android:layout_height="39dp"
+                            android:minHeight="0dp"
+                            android:text="Hapus"
+                            android:textAllCaps="false"
+                            android:textColor="@color/accent_teal"
+                            android:textSize="11sp"
+                            app:backgroundTint="@color/surface_primary"
+                            app:cornerRadius="11dp"
+                            app:strokeColor="@color/border_teal"
+                            app:strokeWidth="1dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
                 <TextView
                     android:id="@+id/tvHistoryEmpty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="34dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/bg_empty_state"
                     android:gravity="center"
-                    android:padding="24dp"
-                    android:text="🗂
-
-Belum ada riwayat scan
-Hasil pemindaian akan muncul di sini."
-                    android:textColor="@color/text_muted"
-                    android:textSize="14sp"
-                    android:lineSpacingExtra="4dp" />
+                    android:paddingStart="22dp"
+                    android:paddingTop="28dp"
+                    android:paddingEnd="22dp"
+                    android:paddingBottom="28dp"
+                    android:text="Belum ada hasil scan.\nMulai pindai benda pertama untuk melihat riwayat di sini."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="4dp"
+                    android:visibility="visible" />
                 <LinearLayout
                     android:id="@+id/historyListContainer"
                     android:layout_width="match_parent"
@@ -373,44 +872,47 @@ Hasil pemindaian akan muncul di sini."
             </LinearLayout>
         </ScrollView>
 
-        <!-- PAGE 3: ABOUT -->
+        <!-- TENTANG -->
         <ScrollView
             android:id="@+id/pageAbout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:fillViewport="false"
+            android:scrollbars="none"
             android:clipToPadding="false"
-            android:scrollbars="none">
+            android:visibility="gone">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingStart="18dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="24dp">
+                android:paddingStart="20dp"
+                android:paddingTop="22dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="28dp">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="Tentang aplikasi"
-                    android:textColor="@color/text_primary"
-                    android:textSize="26sp"
+                    android:text="TENTANG"
+                    android:textColor="@color/text_muted"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.12"
                     android:textStyle="bold" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="TrashLens membantu mengenali kategori sampah melalui kamera ponsel."
-                    android:textColor="@color/text_secondary"
-                    android:textSize="13sp"
-                    android:lineSpacingExtra="3dp" />
+                    android:layout_marginTop="6dp"
+                    android:text="Tentang EcoScan"
+                    android:textColor="@color/text_primary"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="15dp"
                     app:cardBackgroundColor="@color/surface_primary"
-                    app:cardCornerRadius="22dp"
+                    app:cardCornerRadius="17dp"
+                    app:cardElevation="0dp"
                     app:strokeColor="@color/divider_color"
                     app:strokeWidth="1dp">
                     <LinearLayout
@@ -418,22 +920,52 @@ Hasil pemindaian akan muncul di sini."
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="18dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <FrameLayout
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:background="@drawable/bg_brand_icon">
+                                <ImageView
+                                    android:layout_width="31dp"
+                                    android:layout_height="31dp"
+                                    android:layout_gravity="center"
+                                    android:contentDescription="Logo EcoScan"
+                                    android:src="@drawable/ic_ecoscan_mark" />
+                            </FrameLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="13dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="EcoScan"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:text="Versi 1.0 - Klasifikasi sampah"
+                                    android:textColor="@color/text_muted"
+                                    android:textSize="11sp" />
+                            </LinearLayout>
+                        </LinearLayout>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="APA YANG DILAKUKAN?"
-                            android:textColor="@color/accent_teal"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.08" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Aplikasi mengambil satu foto melalui kamera belakang, lalu model EfficientNetB0 melakukan klasifikasi langsung di perangkat. Foto dan hasil riwayat disimpan secara lokal. Aplikasi tidak mengirim gambar ke server."
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp"
-                            android:lineSpacingExtra="5dp" />
+                            android:layout_marginTop="15dp"
+                            android:text="EcoScan membantu mengenali jenis sampah dari kamera ponsel. Hasil klasifikasi berjalan langsung di perangkat dan dapat digunakan sebagai panduan awal untuk memilah sampah."
+                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp"
+                            android:lineSpacingExtra="4dp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -441,132 +973,257 @@ Hasil pemindaian akan muncul di sini."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"
-                    android:text="ENAM KATEGORI"
-                    android:textColor="@color/accent_teal"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.08" />
+                    android:text="Fitur utama"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     app:cardBackgroundColor="@color/surface_primary"
-                    app:cardCornerRadius="20dp"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
                     app:strokeColor="@color/divider_color"
                     app:strokeWidth="1dp">
-                    <LinearLayout
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="15dp" android:paddingEnd="15dp">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingTop="14dp" android:paddingBottom="14dp">
+                            <ImageView android:layout_width="25dp" android:layout_height="25dp" android:src="@drawable/ic_about_camera" android:contentDescription="Kamera" />
+                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_weight="1" android:text="Pemindaian lewat kamera" android:textColor="@color/text_primary" android:textSize="13sp" />
+                        </LinearLayout>
+                        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider_color" />
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingTop="14dp" android:paddingBottom="14dp">
+                            <ImageView android:layout_width="25dp" android:layout_height="25dp" android:src="@drawable/ic_about_history" android:contentDescription="Riwayat" />
+                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_weight="1" android:text="Riwayat tersimpan di perangkat" android:textColor="@color/text_primary" android:textSize="13sp" />
+                        </LinearLayout>
+                        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider_color" />
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingTop="14dp" android:paddingBottom="14dp">
+                            <ImageView android:layout_width="25dp" android:layout_height="25dp" android:src="@drawable/ic_about_offline" android:contentDescription="Offline" />
+                            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_weight="1" android:text="Klasifikasi offline dengan TensorFlow Lite" android:textColor="@color/text_primary" android:textSize="13sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:text="Cara menggunakan"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="@color/surface_primary"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/divider_color"
+                    app:strokeWidth="1dp">
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="📦  Kardus (cardboard)" android:textColor="@color/text_primary" android:textSize="14sp" android:paddingVertical="6dp" />
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="🍶  Kaca (glass)" android:textColor="@color/text_primary" android:textSize="14sp" android:paddingVertical="6dp" />
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="🥫  Logam (metal)" android:textColor="@color/text_primary" android:textSize="14sp" android:paddingVertical="6dp" />
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="📰  Kertas (paper)" android:textColor="@color/text_primary" android:textSize="14sp" android:paddingVertical="6dp" />
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="🧴  Plastik (plastic)" android:textColor="@color/text_primary" android:textSize="14sp" android:paddingVertical="6dp" />
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="🗑️  Sampah lainnya (trash)" android:textColor="@color/text_primary" android:textSize="14sp" android:paddingVertical="6dp" />
-                    </LinearLayout>
+                        android:padding="16dp"
+                        android:text="1. Buka tab Scan.\n\n2. Arahkan kamera ke satu benda.\n\n3. Tekan Ambil foto &amp; analisis.\n\n4. Lihat kategori dan tingkat keyakinan, lalu buka Riwayat jika ingin melihat hasil sebelumnya."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"
+                        android:lineSpacingExtra="4dp" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="12dp"
                     app:cardBackgroundColor="@color/surface_result"
-                    app:cardCornerRadius="20dp"
-                    app:strokeColor="@color/border_teal"
-                    app:strokeWidth="1dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="MODEL MACHINE LEARNING" android:textColor="@color/accent_teal" android:textStyle="bold" android:textSize="11sp" android:letterSpacing="0.07" />
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="EfficientNetB0 • TensorFlow Lite
-Input: 224 × 224 piksel
-Test accuracy: 86,98% (334 dari 384 gambar)
-Validation accuracy terbaik: 90,19%" android:textColor="@color/text_primary" android:textSize="13sp" android:lineSpacingExtra="4dp" />
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="15dp">
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Model klasifikasi" android:textColor="@color/accent_teal" android:textSize="13sp" android:textStyle="bold" />
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="EfficientNetB0 - TensorFlow Lite\nUkuran masukan 224 x 224 piksel\nAkurasi pengujian: 86,98%" android:textColor="@color/text_secondary" android:textSize="11sp" android:lineSpacingExtra="3dp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/bg_note_panel"
-                    android:padding="14dp"
-                    android:text="Catatan: hasil AI dapat keliru, terutama untuk kaca, plastik, dan kategori trash. Gunakan hasil sebagai bantuan awal dan periksa kembali sebelum memilah. Confidence bukan jaminan kebenaran."
+                    android:padding="12dp"
+                    android:text="Prediksi bisa keliru, terutama pada kelas sampah yang mirip. Periksa kembali hasilnya sebelum memilah."
                     android:textColor="@color/warning_amber"
-                    android:textSize="12sp"
-                    android:lineSpacingExtra="3dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:text="TrashLens • Versi 1.0.0
-Dibuat untuk pembelajaran Machine Learning"
-                    android:textColor="@color/text_muted"
                     android:textSize="11sp"
-                    android:lineSpacingExtra="4dp" />
+                    android:lineSpacingExtra="3dp" />
             </LinearLayout>
         </ScrollView>
     </FrameLayout>
 
-    <!-- BOTTOM NAVIGATION -->
-    <LinearLayout
+        <!-- Navigasi bawah: empat item setara, ikon konsisten, tanpa tombol bulat khusus Scan -->
+    <FrameLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="76dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"
-        android:background="@color/surface_primary">
+        android:layout_height="78dp"
+        android:background="@drawable/bg_nav_bar"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:elevation="12dp">
 
         <LinearLayout
-            android:id="@+id/navScan"
-            android:layout_width="0dp"
+            android:id="@+id/bottomNavItems"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="Scan Sampah">
-            <TextView android:id="@+id/iconScan" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📷" android:textSize="19sp" />
-            <TextView android:id="@+id/labelScan" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Scan Sampah" android:textSize="10sp" android:textColor="@color/text_muted" android:textStyle="bold" />
-        </LinearLayout>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="3dp"
+            android:weightSum="4">
 
-        <LinearLayout
-            android:id="@+id/navHistory"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="Riwayat">
-            <TextView android:id="@+id/iconHistory" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🕘" android:textSize="19sp" />
-            <TextView android:id="@+id/labelHistory" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Riwayat" android:textSize="10sp" android:textColor="@color/text_muted" android:textStyle="bold" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/navHome"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Beranda"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/ivNavHomeSafe"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:src="@drawable/ic_nav_home_safe"
+                    android:tint="@color/text_muted"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no" />
+                <TextView
+                    android:id="@+id/iconHome"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    android:text="" />
+                <TextView
+                    android:id="@+id/labelHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Beranda"
+                    android:textColor="@color/text_muted"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/navAbout"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="Tentang aplikasi">
-            <TextView android:id="@+id/iconAbout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ⓘ" android:textSize="19sp" android:textColor="@color/text_muted" />
-            <TextView android:id="@+id/labelAbout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Tentang" android:textSize="10sp" android:textColor="@color/text_muted" android:textStyle="bold" />
+            <LinearLayout
+                android:id="@+id/navHistory"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Riwayat scan"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/ivNavHistorySafe"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:src="@drawable/ic_nav_history_safe"
+                    android:tint="@color/text_muted"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no" />
+                <TextView
+                    android:id="@+id/iconHistory"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    android:text="" />
+                <TextView
+                    android:id="@+id/labelHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Riwayat"
+                    android:textColor="@color/text_muted"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/navScan"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Mulai scan sampah"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/ivNavScanOutline"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:src="@drawable/ic_nav_scan_outline"
+                    android:tint="@color/text_muted"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no" />
+                <TextView
+                    android:id="@+id/iconScan"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    android:text="" />
+                <TextView
+                    android:id="@+id/labelScan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Scan"
+                    android:textColor="@color/text_muted"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/navAbout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Tentang aplikasi"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/ivNavAboutSafe"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:src="@drawable/ic_nav_about_safe"
+                    android:tint="@color/text_muted"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no" />
+                <TextView
+                    android:id="@+id/iconAbout"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    android:text="" />
+                <TextView
+                    android:id="@+id/labelAbout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Tentang"
+                    android:textColor="@color/text_muted"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </FrameLayout>
 </LinearLayout>
+
