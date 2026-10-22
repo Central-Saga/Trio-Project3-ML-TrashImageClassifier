@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_navy">#0D1724</color>
-    <color name="surface_primary">#172633</color>
-    <color name="surface_input">#111C26</color>
-    <color name="surface_result">#14362F</color>
-    <color name="surface_chip">#173C38</color>
-    <color name="accent_teal">#7CE8B2</color>
-    <color name="border_teal">#346B5A</color>
-    <color name="border_input">#344B57</color>
-    <color name="text_primary">#F2F8F5</color>
-    <color name="text_secondary">#B4C9C1</color>
-    <color name="text_muted">#8CA59A</color>
-    <color name="text_hint">#718794</color>
-    <color name="divider_color">#294047</color>
-    <color name="ripple_teal">#557CE8B2</color>
-    <color name="warning_amber">#FFD18B</color>
-    <color name="accent_orange">#FF9800</color>
-    <color name="accent_blue">#2196F3</color>
-    <color name="accent_yellow">#FFC107</color>
-    <color name="accent_coral">#FF7F50</color>
-    <color name="accent_purple">#9C27B0</color>
+    <!-- Palet EcoScan: warna tenang, netral, dan tidak terlalu dekoratif. -->
+    <color name="background_navy">#FFF5F7F4</color>
+    <color name="surface_primary">#FFFFFFFF</color>
+    <color name="surface_input">#FFF0F3F0</color>
+    <color name="surface_result">#FFEAF3EE</color>
+    <color name="surface_chip">#FFEAF2ED</color>
+    <color name="accent_teal">#FF0F6B5C</color>
+    <color name="border_teal">#FFD0E2D9</color>
+    <color name="border_input">#FFE0E7E2</color>
+    <color name="text_primary">#FF23362F</color>
+    <color name="text_secondary">#FF68766F</color>
+    <color name="text_muted">#FF8C9891</color>
+    <color name="text_hint">#FFA9B2AC</color>
+    <color name="divider_color">#FFE5EAE6</color>
+    <color name="ripple_teal">#220F6B5C</color>
+    <color name="warning_amber">#FF805D26</color>
+    <color name="accent_coral">#FFF9EAE5</color>
+    <color name="accent_yellow">#FFFFF3D8</color>
+    <color name="accent_blue">#FFEAF1F4</color>
+    <color name="accent_purple">#FFF0ECF5</color>
+    <color name="accent_mint">#FFE6F1EA</color>
+    <color name="accent_orange">#FFF9E9D3</color>
+    <color name="green_dark">#FF0B4F44</color>
+    <color name="orange_accent">#FFF5A623</color>
 </resources>
